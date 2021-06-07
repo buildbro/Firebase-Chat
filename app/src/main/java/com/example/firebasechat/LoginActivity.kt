@@ -1,14 +1,11 @@
 package com.example.firebasechat
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import com.example.firebasechat.databinding.ActivityLoginBinding
-import com.example.firebasechat.databinding.ActivityRegistrationBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -33,7 +30,6 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, ChatActivity::class.java))
                 } else {
-                    Log.w("message", "createUserWithEmail:failure", task.exception)
                     Toast.makeText(this, "Unable to login. Check your input or try again later", Toast.LENGTH_SHORT).show()
                 }
             }
