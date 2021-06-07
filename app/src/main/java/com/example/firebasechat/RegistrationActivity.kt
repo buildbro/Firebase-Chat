@@ -1,39 +1,38 @@
 package com.example.firebasechat
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
-import com.example.firebasechat.databinding.ActivityMainBinding
-import com.example.firebasechat.databinding.ActivityRegistrationBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class RegistrationActivity : AppCompatActivity() {
 
     lateinit var auth: FirebaseAuth
-    lateinit var binding: ActivityRegistrationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
-
-        binding = ActivityRegistrationBinding.inflate(layoutInflater)
 
         auth = FirebaseAuth.getInstance()
     }
 
     public fun registerUser(view: View) {
 
-        var email: String = binding.emailEditText.text.toString()
-        var password: String = binding.passwordEditText.text.toString()
+        var email: String = findViewById<EditText>(R.id.email_edit_text).text.toString()
+        var password: String = findViewById<EditText>(R.id.password_edit_text).text.toString()
+
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    startActivity(Intent(this, ChatActivity::class.java))
-                } else {
-                    Toast.makeText(this, "An error occurred", Toast.LENGTH_SHORT)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, ChatActivity::class.java))
+                    } else {
+                        Toast.makeText(this, "An error occurred", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
     }
 }
